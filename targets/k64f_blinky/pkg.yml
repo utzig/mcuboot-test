@@ -1,4 +1,3 @@
-### Package: targets/k64f_blinky
 pkg.name: "targets/k64f_blinky"
 pkg.type: "target"
 pkg.description: 
