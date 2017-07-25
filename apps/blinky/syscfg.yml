@@ -1,0 +1,4 @@
+syscfg.vals:
+    REBOOT_LOG_ENTRY_COUNT: 0
+    REBOOT_LOG_CONSOLE: 0
+    SHELL_TASK: 1

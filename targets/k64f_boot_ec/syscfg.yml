@@ -1,0 +1,2 @@
+syscfg.vals:
+    BOOTUTIL_SIGN_EC: 1

@@ -1,0 +1,8 @@
+pkg.name: "targets/k64f_boot_rsa"
+pkg.type: "target"
+pkg.description: 
+pkg.author: 
+pkg.homepage: 
+
+pkg.deps:
+    - keys
