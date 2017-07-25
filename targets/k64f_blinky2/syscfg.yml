@@ -1,0 +1,2 @@
+syscfg.vals:
+    BLINKY_TICKS_PER_SEC: 2
