@@ -29,7 +29,7 @@
 #endif
 
 #define BLINKY_PRIO (8)
-#define BLINKY_STACK_SIZE    OS_STACK_ALIGN(192)
+#define BLINKY_STACK_SIZE    OS_STACK_ALIGN(128)
 static struct os_task task1;
 static volatile int g_task1_loops;
 
@@ -42,8 +42,7 @@ blinky_handler(void *arg)
     while (1) {
         ++g_task1_loops;
 
-        /* Wait one second */
-        os_time_delay(OS_TICKS_PER_SEC);
+        os_time_delay(OS_TICKS_PER_SEC / MYNEWT_VAL(BLINKY_TICKS_PER_SEC));
 
         /* Toggle the LED */
         hal_gpio_toggle(g_led_pin);
