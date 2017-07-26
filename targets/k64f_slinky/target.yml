@@ -1,0 +1,4 @@
+target.app: "apps/slinky"
+target.bsp: "@apache-mynewt-core/hw/bsp/frdm-k64f"
+target.build_profile: "optimized"
+target.header_size: 0x200
