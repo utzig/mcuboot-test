@@ -61,6 +61,28 @@ And load
 
 ### Overwrite only functionality
 
+Build/load mcuboot:
+
+* `newt build k64f_boot_rsa_noswap`
+* `newt load k64f_boot_rsa_noswap`
+
+Build/load blinky to slot 0:
+
+* `newt create-image k64f_blinky 1.0.1 key_rsa.pem`
+* `newt load k64f_blinky`
+
+Build/load blinky2 both with bad and good key, followed by a permanent swap
+request:
+
+* `newt create-image k64f_blinky2 1.0.2 <bad and good rsa keys>.pem`
+* `newtmgr image upload k64f_blinky2`
+* `newtmgr image list`
+* `newtmgr image confirm <hash of slot 1>`
+
+This should not swap and delete the image in slot 1 when signed with the wrong
+key, otherwise the image in slot 1 should be *moved* to slot 0 and slot 1 should
+be empty.
+
 ### Validate slot 0 option
 
 Build/load mcuboot:
@@ -88,12 +110,41 @@ Build signed image with *valid* key:
 
 ### Swap with random failures
 
+DISCLAIMER: be careful with copy/paste of commands, this test uses another
+target/app!
+
+Build/load mcuboot:
+
+* `newt build k64f_boot_rsa`
+* `newt load k64f_boot_rsa`
+
+Build/load slinky to slot 0:
+
+* `newt create-image k64f_slinky 1.0.1 key_rsa.pem`
+* `newt load k64f_slinky`
+
+Build/load slinky2 to slot 1:
+
+* `newt create-image k64f_slinky2 1.0.2 key_rsa.pem`
+* `newtmgr image upload k64f_slinky2`
+
+Confirm that both images are installed, request a permanent request to the
+image in slot 1 and check that it works.
+
+* `newtmgr image list`
+* `newtmgr image confirm <hash of slot 1>`
+
+If everything works, now proceed with requests for permanent swap to the image
+in slot 1 and do random swaps (as much as you like!). When the swap finishes
+confirm that the swap was finished with the previous slot 1 image now in
+slot 0 and vice-versa.
+
 ### Help
 
 * Mass erase MCU
 
-    $ pyocd-flashtool -ce
+        $ pyocd-flashtool -ce
 
 * Flashing image in slot 1:
 
-    $ pyocd-flashtool -se --address 0x80000 ${IMG_FILE} bin
+        $ pyocd-flashtool -se --address 0x80000 ${IMG_FILE} bin
