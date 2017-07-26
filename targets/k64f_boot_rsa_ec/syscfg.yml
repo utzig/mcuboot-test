@@ -1,0 +1,4 @@
+syscfg.vals:
+    BOOTUTIL_SIGN_RSA: 1
+    BOOTUTIL_RSA_PKCS1_15: 1
+    BOOTUTIL_SIGN_EC: 1

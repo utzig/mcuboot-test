@@ -5,6 +5,8 @@ BOOT_RSA := k64f_boot_rsa
 BOOT_EC := k64f_boot_ec
 BOOT_EC256 := k64f_boot_ec256
 BOOT_RSA_EC := k64f_boot_rsa_ec
+BOOT_RSA_VALIDATE0 := k64f_boot_rsa_validate0
+BOOT_RSA_NOSWAP := k64f_boot_rsa_ec
 
 RSA_KEY_1 := key_rsa.pem
 RSA_KEY_2 := key_rsa_2.pem
@@ -48,9 +50,20 @@ build-boot-rsa-ec:
 	@newt build -q $(BOOT_RSA_EC)
 	@echo "ok"
 
+build-boot-rsa-validate0:
+	@echo "* Building mcuboot with slot 0 validation... \c"
+	@newt build -q $(BOOT_RSA_VALIDATE0)
+	@echo "ok"
+
+build-boot-rsa-noswap:
+	@echo "* Building mcuboot with overwrite only upgrade... \c"
+	@newt build -q $(BOOT_RSA_NOSWAP)
+	@echo "ok"
+
 build-apps: build-blinky build-blinky2
 
-build-mcuboot: build-boot-rsa build-boot-ec build-boot-ec256 build-boot-rsa-ec
+build-mcuboot: build-boot-rsa build-boot-ec build-boot-ec256 build-boot-rsa-ec \
+	           build-boot-rsa-validate0 build-boot-rsa-noswap
 
 clean:
 	rm -rf bin/
