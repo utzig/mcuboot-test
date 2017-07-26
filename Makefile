@@ -6,7 +6,7 @@ BOOT_EC := k64f_boot_ec
 BOOT_EC256 := k64f_boot_ec256
 BOOT_RSA_EC := k64f_boot_rsa_ec
 BOOT_RSA_VALIDATE0 := k64f_boot_rsa_validate0
-BOOT_RSA_NOSWAP := k64f_boot_rsa_ec
+BOOT_RSA_NOSWAP := k64f_boot_rsa_noswap
 
 RSA_KEY_1 := key_rsa.pem
 RSA_KEY_2 := key_rsa_2.pem
