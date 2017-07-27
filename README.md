@@ -22,6 +22,11 @@ Build and load good image in slot 0:
 * `newt create-image k64f_blinky 1.0.1 key_<sign-algo>.pem`
 * `newt load k64f_blinky`
 
+NOTE: If testing RSA/PSS `newt create-image` needs to be passed in the extra
+flag `--rsa-pss` eg:
+
+`newt create-image k64f_blinky 1.0.1 key_rsa.pem --rsa-pss`
+
 Build and load image in slot 1 with no signing, signed with
 key_<sign-algo>_2.pem and signed with key_<sign-algo>.pem. Mark each one as
 test image and check that swap only happens for image signed with
@@ -33,6 +38,8 @@ key_<sign-algo>.pem. Both others should be erased.
 * `newtmgr image test <hash of slot 1>`
 
 ### Image signed with more than one key
+
+FIXME: this is currently not functional, skip this section!
 
 Build and load mcuboot:
 

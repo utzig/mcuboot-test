@@ -1,0 +1,2 @@
+syscfg.vals:
+    BOOTUTIL_SIGN_RSA: 1

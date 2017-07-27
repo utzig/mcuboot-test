@@ -1,7 +1,11 @@
 BLINKY := k64f_blinky
 BLINKY2 := k64f_blinky2
 
+SLINKY := k64f_slinky
+SLINKY2 := k64f_slinky2
+
 BOOT_RSA := k64f_boot_rsa
+BOOT_RSA_PSS := k64f_boot_rsa_pss
 BOOT_EC := k64f_boot_ec
 BOOT_EC256 := k64f_boot_ec256
 BOOT_RSA_EC := k64f_boot_rsa_ec
@@ -21,18 +25,33 @@ NEWTMGR_IMG := newtmgr $(NEWTMGR_CONN) image
 all: build-apps build-mcuboot
 
 build-blinky:
-	@echo "* Building first app... \c"
+	@echo "* Building blinky for slot 0... \c"
 	@newt build -q $(BLINKY)
 	@echo "ok"
 
 build-blinky2:
-	@echo "* Building second app... \c"
+	@echo "* Building blinky2 for slot 1... \c"
 	@newt build -q $(BLINKY2)
+	@echo "ok"
+
+build-slinky:
+	@echo "* Building slinky for slot 0... \c"
+	@newt build -q $(SLINKY)
+	@echo "ok"
+
+build-slinky2:
+	@echo "* Building slinky2 for slot 1... \c"
+	@newt build -q $(SLINKY2)
 	@echo "ok"
 
 build-boot-rsa:
 	@echo "* Building mcuboot with RSA... \c"
 	@newt build -q $(BOOT_RSA)
+	@echo "ok"
+
+build-boot-rsa-pss:
+	@echo "* Building mcuboot with RSA/PSS... \c"
+	@newt build -q $(BOOT_RSA_PSS)
 	@echo "ok"
 
 build-boot-ec:
@@ -45,6 +64,7 @@ build-boot-ec256:
 	@newt build -q $(BOOT_EC256)
 	@echo "ok"
 
+# FIXME: multi-key signing does not work yet...
 build-boot-rsa-ec:
 	@echo "* Building mcuboot with RSA + EC... \c"
 	@newt build -q $(BOOT_RSA_EC)
@@ -60,10 +80,10 @@ build-boot-rsa-noswap:
 	@newt build -q $(BOOT_RSA_NOSWAP)
 	@echo "ok"
 
-build-apps: build-blinky build-blinky2
+build-apps: build-blinky build-blinky2 build-slinky build-slinky2
 
-build-mcuboot: build-boot-rsa build-boot-ec build-boot-ec256 build-boot-rsa-ec \
-	           build-boot-rsa-validate0 build-boot-rsa-noswap
+build-mcuboot: build-boot-rsa build-boot-rsa-pss build-boot-ec \
+	           build-boot-ec256 build-boot-rsa-validate0 build-boot-rsa-noswap
 
 clean:
 	rm -rf bin/
